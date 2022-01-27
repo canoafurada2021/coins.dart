@@ -12,23 +12,31 @@ class MoedasPage extends StatefulWidget {
 }
 
 class _MoedasPageState extends State<MoedasPage> {
-
   final tabela = MoedaRepository.tabela;
-    NumberFormat real = NumberFormat.currency(locale: 'pt_BR', name: 'R\$');
-    List<Moeda> selecionadas = [];
+  NumberFormat real = NumberFormat.currency(locale: 'pt_BR', name: 'R\$');
+  List<Moeda> selecionadas = [];
 
-
-    appBarDinamica() {
-      if (selecionadas.isEmpty) {
-        return AppBar(
-          title: const Text("Critpo Moedas"),
-
-        );
-      }
+  appBarDinamica() {
+    if (selecionadas.isEmpty) {
+      return AppBar(
+        title: const Text("Critpo Moedas"),
+      );
+    } else {
+      return AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            setState(() {
+             selecionadas = [];
+            });
+          },
+        ),
+      );
     }
+  }
 
-    @override
-    Widget build(BuildContext context) {
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
         appBar: appBarDinamica(),
         body: ListView.separated(
@@ -72,5 +80,4 @@ class _MoedasPageState extends State<MoedasPage> {
         ));
   }
 }
-
 
