@@ -11,7 +11,7 @@ class MoedaRepository {
 
   Moeda(
   iconss: 'lib/images/etherum 2.png',
-  nome: "Etherum",
+  nome: "Etherum2",
   sigla: "ETH2",
   preco: 13068.77
   ),
