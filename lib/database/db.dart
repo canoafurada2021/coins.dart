@@ -2,53 +2,57 @@ import 'package:sqflite/sqflite.dart';
 import 'package:sqflite/sqlite_api.dart';
 import 'package:path/path.dart';
 
+class DB {
+  DB._();
 
-class DB{
- DB._();
+  static final DB instance = DB._();
 
- static final DB instance = DB._();
+  static Database? _database;
 
- static Database? _database;
+  get database async {
+    if (_database != null) return _database;
 
- get database async {
-   if (_database != null) return _database;
+    return await _initDatabase();
+  }
 
-   return await _initDatabase();
- }
-   _initDatabase() async{
-     return await  openDatabase(
-     join(await getDatabasesPath(), 'cripto.db'),
-     version: 1,
-         onCreate: _onCreate,
+  _initDatabase() async {
+    return await openDatabase(
+      join(await getDatabasesPath(), 'cripto.db'),
+      version: 1,
+      onCreate: _onCreate,
+    );
+  }
 
-     );
+  _onCreate(db, versao) async {
+    await db.execute(_conta);
+    await db.execute(_carteira);
+    await db.execute(_historico);
+    await db.insert('conta', {'saldo': 0});
+  }
 
-   }
-_onCreate(db,versao) async {
-   await db.execute(_conta);
-   await db.execute(_carteira);
-   await db.execute(_historico);
-   await db.insert('conta', {'saldo': 0});
-}
-String get _conta => '''
+// language=sql
+  String get _conta => '''
   CREATE TABLE conta (
-     id INTEGER PRIMARY KET AUTOINCREMENT,
-      saldo REAl
-     );
+    id    INTEGER PRIMARY KEY AUTOINCREMENT,
+    saldo REAl
+  );
      ''';
 
-String get _carteira => '''
+  // language=sql
+  String get _carteira => '''
 CREATE TABLE carteira (
 sigla TEXT PRIMARY KEY,
 moeda TEXT,
-quantidade TEXT
+quantidade TEXT,
+dataoperacao TEXT
 );
 ''';
 
- String get _historico => '''
+// language=sql
+  String get _historico => '''
 CREATE TABLE historico (
-id INTERGER PRIMARY KEY AUTOINCREMENT,
-data_operacao INT,
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+data_operacao TEXT,
 tipo_operacao TEXT,
 moeda TEXT,
 sigla TEXT,
@@ -57,6 +61,4 @@ quantidade TEXT
 
 );
 ''';
-
-
 }
