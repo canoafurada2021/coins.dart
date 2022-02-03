@@ -186,7 +186,7 @@ class _CarteiraPageState extends State<CarteiraPage> {
 
   loadHistorico() {
     final historico = conta.historico;
-    final date = DateFormat('dd/MM/yyyy');
+    final date = DateFormat('dd/MM/yyyy - hh:mm');
 
     List<Widget> widgets = [];
 

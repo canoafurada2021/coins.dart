@@ -67,7 +67,7 @@ class ContaRepository extends ChangeNotifier {
     final DateFormat dateFormat;
 
     DateTime data = DateTime.now();
-    dateFormat = DateFormat('dd/MM/yyyy');
+    dateFormat = DateFormat('dd/MM/yyyy - hh:mm');
 
     db = await DB.instance.database;
     await db.transaction((txn) async {

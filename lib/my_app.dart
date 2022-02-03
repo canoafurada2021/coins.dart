@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_projects/pages/home_page.dart';
+import 'package:flutter_projects/widget/auth_check.dart';
 import 'pages/MoedasPage.dart';
 
 class Muah extends StatelessWidget {
@@ -13,7 +14,7 @@ title: 'Moedasbase',
         theme: ThemeData(
     primarySwatch: Colors.indigo,
     ),
-    home: HomePage(),
+    home: AuthCheck(),
     );
   }
 }
