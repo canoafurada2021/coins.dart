@@ -19,7 +19,9 @@ void main() async{
         ChangeNotifierProvider(create: (context) => AuthService()),
         ChangeNotifierProvider(create: (context) => ContaRepository(),),
         ChangeNotifierProvider(create: (context) => AppSettings(),),
-        ChangeNotifierProvider(create: (context) => FavoritasRepository(),),
+        ChangeNotifierProvider(create: (context) => FavoritasRepository(
+          auth: context.read<AuthService>(),
+        ),),
       ],
       child: Muah(),
     ),
